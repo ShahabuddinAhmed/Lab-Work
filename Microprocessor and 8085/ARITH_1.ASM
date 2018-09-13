@@ -1,0 +1,50 @@
+;*****************************************
+;     MDA-Win8086 EXPERIMENT PROGRAM    *
+;     FILENAME  : ARITH_1.ASM
+;     PROCESSOR : I8086
+;*****************************************
+CODE	SEGMENT
+	ASSUME	CS:CODE,DS:CODE,ES:CODE,SS:CODE
+	; 43 + 65 = BX
+	MOV	AL,6
+	ADD	AL,5
+	AAA
+	MOV	BL,AL
+	MOV	AL,4
+	ADC	AL,3
+	AAA
+	MOV	BH,AL
+	; 83-14 = CX
+	MOV	AL,3
+	SUB	AL,4
+	AAS
+	MOV	CL,AL
+	MOV	AL,8
+	SBB	AL,1
+	AAS
+	MOV	CH,AL
+	; 58+15
+	MOV	AL,58H
+	ADD	AL,15H
+	DAA
+	; 51-13
+	MOV	AL,51H
+	SUB	AL,13H
+	DAS
+	; 4 x 3
+	MOV	BL,4
+	MOV	AL,3
+	MUL	BL
+	AAM
+	; 14/4
+	MOV	AX,0104H
+	MOV	BL,4
+	AAD
+	DIV	BL
+	;
+	INT	3
+	;
+CODE	ENDS
+	END
+	
+
