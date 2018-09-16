@@ -1,0 +1,29 @@
+;*****************************************
+;     MDA-Win8086 EXPERIMENT PROGRAM    *
+;     FILENAME  : BIT_2.ASM
+;     PROCESSOR : I8086
+;*****************************************
+	CODE	SEGMENT
+	ASSUME	CS:CODE,DS:CODE,ES:CODE,SS:CODE
+	ORG	1000H
+	MOV	AX,0
+	MOV	DS,AX
+	;
+	MOV	BL,01101110B
+	MOV	SI,2000H
+	MOV	CX,0008H
+	;
+NEXT:	MOV	BYTE PTR[SI],30H
+	TEST	BL,1
+	JZ	ZERO
+	INC	BYTE PTR[SI]
+ZERO:	INC	SI
+	RCR	BL,1	
+	LOOP	NEXT
+	;
+	INT	3
+	;
+CODE	ENDS
+	END
+
+
