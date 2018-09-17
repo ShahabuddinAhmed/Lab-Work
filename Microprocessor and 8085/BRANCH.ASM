@@ -1,0 +1,48 @@
+;*****************************************
+;     MDA-Win8086 EXPERIMENT PROGRAM    *
+;     FILENAME  : BRANCH.ASM
+;     PROCESSOR : I8086
+;*****************************************
+CODE	SEGMENT
+	ASSUME	CS:CODE,DS:CODE,ES:CODE,SS:CODE
+	MOV	AL,78H
+	MOV	CL,80H
+	CMP	CL,00H
+	JB	L1
+	JL	L1
+	NOP
+	;
+L1:	CMP	AL,CL
+	JG	L2
+	JA	L2
+	NOP
+	;
+L2:	ADD	AL,18H
+	JC	L3
+	JS	L3
+	NOP
+	;
+L3:	ADD	AL,80H
+	MOV	AL,00H
+	JZ	L4
+	JC	L4
+	NOP
+	;
+L4:	MOV	AL,0FFH
+	ADD	AL,01H
+	JC	L5
+	NOP
+	;
+L5:	CLC
+	MOV	AL,0FFH
+	INC	AL
+	JC	L6
+	JE	L6
+	NOP
+	;
+L6:	INT	3
+	;
+CODE	ENDS
+	END
+
+
