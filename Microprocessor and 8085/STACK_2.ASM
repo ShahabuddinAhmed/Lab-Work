@@ -1,0 +1,33 @@
+;*****************************************
+;     MDA-Win8086 EXPERIMENT PROGRAM    *
+;     FILENAME  : STACK_2.ASM
+;     PROCESSOR : I8086
+;*****************************************
+	CODE	SEGMENT
+	ASSUME	CS:CODE,DS:CODE,ES:CODE,SS:CODE
+	ORG	1000H
+	MOV	AX,0
+	MOV	SS,AX
+	MOV	DS,AX
+	MOV	SP,0540H
+	;
+	MOV	CX,16
+	MOV	SI,2000H
+L1:	CALL	SHIFT
+	LOOP	L1
+	INT 	3
+	;
+SHIFT:  PUSH	CX
+	MOV	AL,[SI]
+	MOV	CX,4
+L2:	ADD	AL,AL
+	LOOP	L2
+	MOV	[SI],AL
+	INC	SI
+	POP	CX
+	RET
+	;
+CODE	ENDS
+	END
+
+
