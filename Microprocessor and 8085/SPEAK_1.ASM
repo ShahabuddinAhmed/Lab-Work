@@ -1,0 +1,84 @@
+;*****************************************
+;     MDA-Win8086 EXPERIMENT PROGRAM    *
+;     FILENAME  : SPEAK_1.ASM
+;     PROCESSOR : I8086
+;     SPEAKER TEST
+;     Press keypad 0 to F
+;*****************************************
+CODE	SEGMENT
+	ASSUME	CS:CODE,DS:CODE,ES:CODE,SS:CODE
+	;
+SPK	EQU	17H
+KEY	EQU	01H
+	;	
+	ORG	1000H
+	XOR	AX,AX
+	MOV	DS,AX
+	;
+START:	MOV	SI,OFFSET FREQ
+	CALL	SCAN
+	;
+	MOV	AL,BYTE PTR K_BUF
+	AND	AX,000FH
+	ADD	AX,AX
+	ADD	SI,AX
+	;
+	MOV	DL,30
+	;
+	MOV	AL,0FFH
+	;
+L4:	MOV	CX,WORD PTR CS:[SI]
+	;
+L3:	OUT	SPK,AL
+	NOP
+	NOP
+	NOP
+	NOP
+	NOP
+	NOP
+	LOOP	L3
+	XOR	AL,01H
+	DEC	DL
+	JNZ	L4
+	;
+	MOV	AL,00H
+	OUT	SPK,AL
+	JMP	START
+	;
+        ; key board scan, key code = AL
+SCAN:	IN	AL,KEY
+	TEST	AL,10000000B
+	JNZ	SCAN
+	TEST	AL,00010000B
+	JNZ	SCAN
+	;
+	AND	AL,00001111B
+	MOV	BYTE PTR K_BUF,AL
+	; key clear
+	OUT	KEY,AL
+	RET
+	;
+	;
+FREQ:	DW	0B2H*2 ;B
+	DW	0A8H*2 ;C
+	DW	96H*2  ;D
+	DW	85H*2  ; E
+	DW	7EH*2  ; F
+	DW	70H*2  ; G
+	DW	64H*2  ; A
+	DW	59H*2  ; B
+	DW	54H*2  ; C
+	DW	4AH*2  ; D
+	DW	42H*2  ; E
+	DW	3EH*2  ; F
+	DW	37H*2  ; G
+	DW	31H*2  ; A
+	DW	2CH*2  ; B
+	DW	29H*2  ; C
+	;
+K_BUF:	DB	1
+CODE	ENDS
+	END
+
+
+
